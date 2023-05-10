@@ -1,1 +1,27 @@
 GET http://localhost:8080/students HTTP/1.1
+
+###
+
+POST http://localhost:8080/students HTTP/1.1
+Content-Type: application/json
+
+{
+    "fullName": "Marcelo Souza",
+    "email": "m.souza@email.com",
+    "cpf": "15975325846"
+}
+
+###
+
+PUT http://localhost:8080/students/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "fullName": "Meu novo nome",
+    "email": "email@email.com",
+    "cpf": "78932648521"
+}
+
+###
+
+DELETE http://localhost:8080/students/2 HTTP/1.1

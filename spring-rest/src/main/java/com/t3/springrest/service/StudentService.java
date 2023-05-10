@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.t3.springrest.dto.StudentDto;
 import com.t3.springrest.entity.Student;
 import com.t3.springrest.repository.StudentRepository;
 
@@ -20,7 +21,7 @@ public class StudentService {
         if (optStudent.isPresent()) {
             return optStudent.get();
         } else {
-            return new Student(0, "Ninguém", "Não existe", "00000000000");
+            return null;
         }
     }
 
@@ -43,10 +44,10 @@ public class StudentService {
     public Student updateStudent(Student newStudent, Long id) {
         Optional<Student> optStudent = studentRepository.findById(id);
         if (optStudent.isPresent()) {
-            //Pega o estudante do banco de dados
+            // Pega o estudante do banco de dados
             Student oldStudent = optStudent.get();
 
-            //Altera somente o nome e o email do estudante
+            // Altera somente o nome e o email do estudante
             oldStudent.setFullName(newStudent.getFullName());
             oldStudent.setEmail(newStudent.getEmail());
 
@@ -55,6 +56,24 @@ public class StudentService {
         } else {
             return null;
         }
+    }
+
+    public StudentDto retrieveStudent(Long id) {
+        Optional<Student> optStudent = studentRepository.findById(id);
+        if (optStudent.isPresent()) {
+            //Pega o estudante do banco
+            Student student = optStudent.get();
+            // Cria o DTO do estudante
+            StudentDto studentDto = new StudentDto();
+            studentDto.setId(student.getId());
+            studentDto.setFullName(student.getFullName());
+            studentDto.setEmail(student.getEmail());
+
+            return studentDto;
+        } else {
+            return null;
+        }
+
     }
 
 }
